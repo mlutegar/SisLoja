@@ -1,7 +1,7 @@
 # PARTICIPAÇÃO
 # Michel Lutegar D'Orsi Pereira TA
-# Andre TA
-# Gabriel TA #
+# André Costa Coelho TA
+# Gabriel Dos Santos Perrota Duarte TA
 
 def menuprincipal(c_cpf, e_codigo, e_desc, e_valor, e_qtd):
     # INTERFACE DO MENU
@@ -23,11 +23,7 @@ def menuprincipal(c_cpf, e_codigo, e_desc, e_valor, e_qtd):
     maior_tot_venda = 0
 
     # INPUT DATA
-    print("Digite o dia, o mês e o ano do inicio do lançamento de dados")
-    dia = input("Dia: ")
-    mes = input("Mês: ")
-    ano = input("Ano: ")
-    data = f"{dia}/{mes}/{ano}"
+    data = input("Digite o dia, o mês e o ano do inicio do lançamento de dados (dd/mm/yy): ")
 
     # INPUT SALDO
     print('')

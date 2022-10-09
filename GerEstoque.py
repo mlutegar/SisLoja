@@ -127,7 +127,7 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
                 while True:
                     remov = int(input("Quantos unidades você quer remover?"))
                     if remov > e_qtd[pos]:
-                        print("Não é possivel, pois está sendo desejado remover mais itens do que há no estoque.\n")
+                        print(f"A quantidade desejada ultrapassa a quantidade que há no estoque!\n")
                         continue
                     else:
                         break
