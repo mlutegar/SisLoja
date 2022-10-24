@@ -3,6 +3,7 @@
 # Andre TA
 # Gabriel TA #
 
+
 def verifica_maior_20(n):  # Função para verificar se o código digitado é valido (a soma precisa ser superior a 20)
     n = str(n)  # Transformando número inteiro digitado para string
     soma_codigo = 0
@@ -24,24 +25,47 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
     soma_valor = 0
 
     # INTERFACE DO MENU
-    print("\n" * 100)  # Limpando a tela
+    print("\n"*100)
+    os.system('cls')  # Limpar tela no executavel
     print('GESTÃO DE ESTOQUE:')
     print(f'Deseja incluir item(s): Digite (1)')
     print(f'Deseja excluir item(s): Digite (2)')
     print('-' * 30)
+
     escolha = int(input('Insira(1 ou 2): '))
+    while escolha != 1 and escolha != 2:  # While para obrigar o usuario teclar o número certo
+        escolha = int(input('Insira(1 ou 2): '))
 
     # CÓDIGO PARA ADICIONO DE ITENS
     if escolha == 1:
+
+        # TITULO DO MENU
+        print("\n" * 100)  # Limpar tela no PyCharm
+        os.system('cls')  # Limpar tela no executavel
+        print("-" * 30)
+        print("Sistema de adição de produtos")
+        print("-" * 30)
+
         # INPUT DA QUANTIDADE DE ITENS QUE SERÃO CADASTRADOS
         n = int(input("Quantos itens deseja inserir? "))
 
         # INPUT DE VALORES REFERENTE AO ITEM
         for i in range(n):
-            # INPUT DO CÓDIGO DO ITEM
+            # INPUT E VERIFICAÇÃO DO CÓDIGO DO ITEM
             while True:
+                codigo_cadastrado = False  # Variavel que verifica se o código está ou não cadastrado
                 cod_item = int(input('\nCódigo do produto: '))
 
+                # VERIFICAÇÃO SE O CÓDIGO JÁ FOI REGISTRADO
+                for o in range(len(e_codigo)):
+                    if e_codigo[o] == cod_item:
+                        codigo_cadastrado = True
+
+                if codigo_cadastrado:
+                    print("Código já cadastrado. Insira um produto novo.")
+                    continue
+
+                # VERIFICAÇÃO SE O CÓDIGO É VALIDO
                 if verifica_maior_20(cod_item):
                     e_codigo.append(int(cod_item))
                     break
@@ -53,7 +77,7 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
             desc_item = input('Descrição do produto: ')
             e_desc.append(desc_item)
 
-            valor_item = float(input('Valor do produto: R$ '))
+            valor_item = float(input('Valor do produto: R$'))
             soma_valor += valor_item
             e_valor.append(valor_item)
 
@@ -69,20 +93,34 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
         media = soma_valor / n
 
         if n != 0:
+            print("\n" * 100)  # Limpar tela no PyCharm
+            os.system('cls')  # Limpar tela no executavel
             print('-' * 30)
-            print(f"Média dos itens cadastrados: R$ {media}")
-            print(f"Item de maior valor cadastrado: código {codigo_maior_valor}, valor R$ {maior_valor}")
+            print(f"Média dos itens cadastrados: R${media}")
+            print(f"Item de maior valor cadastrado: código {codigo_maior_valor}, valor R${maior_valor}")
         else:
             print("Nenhum item incluido.")
 
         print('-' * 30)
+
         e = int(input("Teclar 0 para retornar à tela pricipal "))
+        while e != 0:  # While para obrigar o usuario teclar o número certo
+            e = int(input("Teclar 0 para retornar à tela pricipal "))
+
         if e == 0:
-            print("\n" * 100)  # Limpando a tela
+            print("\n" * 100)  # Limpar tela no PyCharm
+            os.system('cls')  # Limpar tela no executavel
             return "0"
 
     # CÓDIGO PARA EXCLUSÃO DE ITENS
     elif escolha == 2:
+
+        # TITULO DO MENU
+        print("\n" * 100)  # Limpar tela no PyCharm
+        os.system('cls')  # Limpar tela no executavel
+        print("-" * 30)
+        print("Sistema de exclusão de produtos")
+        print("-" * 30)
 
         # VERIFICAÇÃO SE HÁ PRODUTO PARA EXCLUIR
         if len(e_codigo) == 0:
@@ -112,6 +150,8 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
 
             # EXCLUSÃO DO ITEM
             certeza = int(input("Tem certeza? (1 pra sim, 2 pra nao) "))
+            while certeza != 1 and certeza != 2:  # While para obrigar o usuario teclar o número certo
+                certeza = int(input("Tem certeza? (1 pra sim, 2 pra nao) "))
 
             if certeza == 1:
                 # PEGAR A POSIÇÃO DO ITEM NA LISTA PARA FAZE A EXCLUSÃO
@@ -125,7 +165,7 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
                 print('\nItens disponíveis', e_qtd[pos])
 
                 while True:
-                    remov = int(input("Quantos unidades você quer remover?"))
+                    remov = int(input("Quantos unidades você quer remover?  "))
                     if remov > e_qtd[pos]:
                         print(f"A quantidade desejada ultrapassa a quantidade que há no estoque!\n")
                         continue
@@ -135,15 +175,20 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
                 e_qtd[pos] -= remov
 
                 # RESULTADO PARCIAL DA EXCLUSÃO
-                print("\nOperação realizada com sucesso")
-                print("O produto de código", item_desejado, "tem agora:", e_qtd[pos], "itens")
+                print("\nOperação realizada com sucesso!")
+                print(f"O produto de código '{item_desejado}' tem agora: {e_qtd[pos]} itens")
 
                 # VOLTA PARA O MENU
                 p = int(input("\nQuer continuar? (1 para sim, 0 para não): "))
+                while p != 0 and p != 1:  # While para obrigar o usuario teclar o número certo
+                    p = int(input("\nQuer continuar? (1 para sim, 0 para não): "))
+
             elif certeza == 2:
                 continue
 
         # RESULTADO FINAL DA EXCLUSÃO
+        print("\n" * 100)  # Limpar tela no PyCharm
+        os.system('cls')  # Limpar tela no executavel
         print("-" * 30)
         print("RELATÓRIO DE ITENS EXCLUÍDOS")
         print("ITEM \t\t SALDO")
@@ -154,6 +199,10 @@ def menuprincipal(e_codigo, e_desc, e_valor, e_qtd):
 
         # CÓDIGO PARA RETORNAR PARA A PÁGINA PRINCIPAL
         e = int(input("Teclar 0 para retornar à tela pricipal "))
+        while e != 0:  # While para obrigar o usuario teclar o número certo
+            e = int(input("Teclar 0 para retornar à tela pricipal "))
+
         if e == 0:
-            print("\n" * 100)  # Limpando a tela
+            print("\n" * 100)  # Limpar tela no PyCharm
+            os.system('cls')  # Limpar tela no executavel
             return "0"

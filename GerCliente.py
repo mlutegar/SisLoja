@@ -3,6 +3,7 @@
 # Andre TA
 # Gabriel TA #
 
+
 def verifica_cpf(cpf):  # Função para verificar se o CPF é válido ou não
     # 1.º VERIFICAÇÃO (SOMA DOS DIGITOS TEM QUE TER DOIS ALGARISMOS IGUAIS)
     soma = 0
@@ -24,25 +25,25 @@ def verifica_cpf(cpf):  # Função para verificar se o CPF é válido ou não
 
     codigo_estado = cpf_test % 10
 
-    if (codigo_estado == 0) and (uf == 'RS'):
+    if (codigo_estado == 0) and (uf == "RS"):
         verificacao = True
-    elif (codigo_estado == 1) and (uf == 'DF' or uf == 'GO' or uf == 'MT' or uf == 'MS' or uf == 'TO'):
+    elif (codigo_estado == 1) and (uf == "DF" or uf == "GO" or uf == "MT" or uf == "MS" or uf == "TO"):
         verificacao = True
-    elif (codigo_estado == 2) and (uf == 'PA' or uf == 'AM' or uf == 'AC' or uf == 'AP' or uf == 'RO' or uf == 'RR'):
+    elif (codigo_estado == 2) and (uf == "PA" or uf == "AM" or uf == "AC" or uf == "AP" or uf == "RO" or uf == "RR"):
         verificacao = True
-    elif (codigo_estado == 3) and (uf == 'CE' or uf == 'MA' or uf == 'PI'):
+    elif (codigo_estado == 3) and (uf == "CE" or uf == "MA" or uf == "PI"):
         verificacao = True
-    elif (codigo_estado == 4) and (uf == 'PE' or uf == 'RN' or uf == 'PA' or uf == 'AL'):
+    elif (codigo_estado == 4) and (uf == "PE" or uf == "RN" or uf == "PA" or uf == "AL"):
         verificacao = True
-    elif (codigo_estado == 5) and (uf == 'BA' or uf == 'SE'):
+    elif (codigo_estado == 5) and (uf == "BA" or uf == "SE"):
         verificacao = True
-    elif (codigo_estado == 6) and (uf == 'MG'):
+    elif (codigo_estado == 6) and (uf == "MG"):
         verificacao = True
-    elif (codigo_estado == 7) and (uf == 'RJ' or uf == 'ES'):
+    elif (codigo_estado == 7) and (uf == "RJ" or uf == "ES"):
         verificacao = True
-    elif (codigo_estado == 8) and (uf == 'SP'):
+    elif (codigo_estado == 8) and (uf == "SP"):
         verificacao = True
-    elif (codigo_estado == 9) and (uf == 'PR' or uf == 'SC'):
+    elif (codigo_estado == 9) and (uf == "PR" or uf == "SC"):
         verificacao = True
     else:
         verificacao = False
@@ -53,23 +54,34 @@ def verifica_cpf(cpf):  # Função para verificar se o CPF é válido ou não
 def menuprincipal(c_cpf, c_renda):  # Menu do Gerenciamento de Clientes
 
     # TITULO DO MENU
-    print("\n" * 100)  # Limpando a tela
+    print("\n" * 100)  # Limpar tela no PyCharm
+    os.system('cls')  # Limpar tela no executavel
     print("-" * 30)
     print("Sistema de cadastro de cliente")
     print("-" * 30)
 
     # CADASTRO DE CPF COM RENDA
     while True:
-        cpf = input("Digite o CPF do cliente que deseja adicionar (Se quiser parar, digite 0): ")
+        cpf_cadastro = False
+        cpf = input("\nDigite o CPF do cliente que deseja adicionar (Se quiser parar, digite 0): ")
+
+        # VERIFICAR SE O CLIENTE JÁ ESTÁ CADASTRADO
+        for i in range(len(c_cpf)):
+            if c_cpf[i] == cpf:
+                cpf_cadastro = True
+        if cpf_cadastro:
+            print("Cliente já cadastrado. Adicione um cliente novo.")
+            continue
+
+        # VERIFICAÇÃO SE O CPF É VALIDO
         if cpf != "0":
             if verifica_cpf(cpf):
                 print("O CPF é valido.")
-                print("-" * 30)
                 c_cpf.append(cpf)
-                c_renda.append(float(input("Digite a sua renda: ")))
-                print("Operação realizada com sucesso!\n")
+                c_renda.append(float(input("\nDigite a sua renda: R$")))
+                print("Operação realizada com sucesso!")
             else:
-                print("CPF é invalido, tente novamente.\n")
+                print("CPF é invalido, tente novamente.")
                 continue
         else:
             break
@@ -89,17 +101,20 @@ def menuprincipal(c_cpf, c_renda):  # Menu do Gerenciamento de Clientes
             qtd_classebaixa += 1
 
     # IMPRIMIR RESULTADO
-    print("\n"*100)
+    print("\n" * 100)  # Limpar tela no PyCharm
+    os.system('cls')  # Limpar a tela no executavel
     print('-' * 30)
-    print('OPERAÇÃO REALIZADA COM SUCESSO')
-    print('Total de clientes cadastrados:', qtd_total)
-    print('-' * 60)
+    print("OPERAÇÃO REALIZADA COM SUCESSO")
+    print("Total de clientes cadastrados:", qtd_total)
+    print("-" * 60)
     if qtd_total != 0:
-        print('FAIXA', '\t' * 9, 'PORCENTAGEM')
-        print("Menor que R$ 5.000,00", '\t' * 5, (qtd_classebaixa / qtd_total) * 100, '%')
-        print("Entre R$ 5.000,00 e R$ 10.000,00", '\t' * 2, (qtd_classemedia / qtd_total) * 100, '%')
-        print("Maior R$ 10.000,00", '\t' * 6, (qtd_classealta / qtd_total) * 100, '%')
-        print('-' * 60)
+        print("FAIXA", "\t" * 6, "PORCENTAGEM")
+        print("Menor que R$5.000,00", "\t" * 4, (qtd_classebaixa / qtd_total) * 100, "%")
+        print("Entre R$5.000,00 e R$10.000,00", "\t" * 3, (qtd_classemedia / qtd_total) * 100, "%")
+        print("Maior R$10.000,00", "\t" * 4, (qtd_classealta / qtd_total) * 100, "%")
+        print("-" * 60)
+
     a = int(input('Tecla 0 para retornar à tela principal: '))
-    if a == 0:
-        return "0"
+    while a != 0:  # While para obrigar o usuario teclar o número certo
+        a = int(input('Tecla 0 para retornar à tela principal: '))
+    return "0"

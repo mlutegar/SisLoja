@@ -8,11 +8,13 @@
 import GerCaixa
 import GerCliente
 import GerEstoque
+import os
 
 
 # FUNÇÕES
 def menu():
-    print('\n'*100)
+    print("\n" * 100)  # Limpar tela no PyCharm
+    os.system('cls')  # Limpar tela no executavel
     print('-' * 30)
     print('SISTEMA DE GESTÃO DE LOJA (SisLoja)')
     print('Selecionar a opção desejada:')
@@ -21,6 +23,7 @@ def menu():
     print('Gestão de fluxo de caixa (3)')
     print('-' * 30)
     return input('Insira(1,2,3): ')
+
 
 
 # LISTAS
@@ -37,5 +40,5 @@ while True:
         escolha = GerCliente.menuprincipal(cCPF, cRenda)
     elif escolha == "3":
         escolha = GerCaixa.menuprincipal(cCPF, eCodigo, eDesc, eValor, eQtd)
-    elif escolha == "0":
-        escolha = menu()
+
+    escolha = menu()  # Se o usuario não digitar nenhum dos números, será executado o menu novamente.
